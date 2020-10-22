@@ -1,7 +1,6 @@
 package com.flipkart.bean;
 
 import com.flipkart.Utils.CourseName;
-import com.flipkart.Utils.Gender;
 
 public class Course {
 
