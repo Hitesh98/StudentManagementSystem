@@ -3,7 +3,7 @@ package com.flipkart.business;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 
-public interface StudentService extends UserService {
+public interface StudentService {
 
     int getNumberOfCoursesRegistered(Student student);
 

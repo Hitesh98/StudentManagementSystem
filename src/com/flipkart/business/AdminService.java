@@ -4,9 +4,9 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.User;
 
-public interface AdminService extends UserService {
+public interface AdminService {
 
-    public boolean addNewUser(User user);
+    public void addNewUser(User user);
 
     public boolean deleteUser(int userId);
 
