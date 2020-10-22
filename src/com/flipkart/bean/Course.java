@@ -1,11 +1,9 @@
 package com.flipkart.bean;
 
-import com.flipkart.Utils.CourseName;
-
 public class Course {
 
     private int courseId;
-    private CourseName courseName;
+    private String courseName;
     private String description;
     private int fees;
     private int courseCatalogID;
@@ -18,9 +16,9 @@ public class Course {
 
     public void setCourseId(int courseId) { this.courseId = courseId; }
 
-    public CourseName getCourseName() { return courseName; }
+    public String getCourseName() { return courseName; }
 
-    public void setCourseName(CourseName courseName) { this.courseName = courseName; }
+    public void setCourseName(String courseName) { this.courseName = courseName; }
 
     public String getDescription() { return description; }
 
