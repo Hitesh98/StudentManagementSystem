@@ -4,5 +4,4 @@ public enum USERTYPE {
     Admin,
     Professor,
     Student,
-    InvalidUser
 }
