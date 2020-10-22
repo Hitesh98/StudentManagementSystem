@@ -1,4 +1,4 @@
-package com.flipkart.Constants;
+package com.flipkart.constants;
 
 public enum USERTYPE {
     Admin,

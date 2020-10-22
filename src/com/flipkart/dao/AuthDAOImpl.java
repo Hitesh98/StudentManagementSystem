@@ -1,6 +1,6 @@
 package com.flipkart.dao;
 
-import com.flipkart.Constants.USERTYPE;
+import com.flipkart.constants.USERTYPE;
 import com.flipkart.bean.User;
 
 public class AuthDAOImpl implements AuthDAO {

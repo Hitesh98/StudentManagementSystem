@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-import com.flipkart.Constants.GENDER;
+import com.flipkart.constants.GENDER;
 
 public class Student extends User {
     private int studentId;

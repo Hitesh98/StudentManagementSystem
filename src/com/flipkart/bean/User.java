@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-import com.flipkart.Constants.USERTYPE;
+import com.flipkart.constants.USERTYPE;
 
 public class User {
 
