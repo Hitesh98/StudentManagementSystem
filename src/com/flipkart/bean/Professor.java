@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-import com.flipkart.Utils.Gender;
+import com.flipkart.Constants.GENDER;
 
 public class Professor extends User {
 
@@ -8,11 +8,11 @@ public class Professor extends User {
     private String name;
     private String email;
     private int assignedCourseID;
-    private Gender gender;
+    private GENDER gender;
 
-    public Gender getGender() { return gender; }
+    public GENDER getGender() { return gender; }
 
-    public void setGender(Gender gender) { this.gender = gender; }
+    public void setGender(GENDER gender) { this.gender = gender; }
 
     public int getProfessorId() { return professorId; }
 

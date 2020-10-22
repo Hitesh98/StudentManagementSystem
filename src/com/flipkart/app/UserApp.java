@@ -1,4 +1,4 @@
 package com.flipkart.app;
 
-public class StudentApp {
+public class UserApp {
 }

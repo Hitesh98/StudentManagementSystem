@@ -1,10 +1,10 @@
 package com.flipkart.exception;
 
-public class NoSuchUserException extends Exception {
+public class UserNotFoundException extends Exception {
 
     private String userName;
 
-    public NoSuchUserException(String userName) {
+    public UserNotFoundException(String userName) {
         super();
         this.userName = userName;
     }
