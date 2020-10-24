@@ -22,9 +22,6 @@ public interface AdminDAO {
     // Delete course from course catalog
     void deleteCourse(Course course) throws CourseNotFoundException;
 
-    //add a user
-    boolean registerUser(User user);
-
     //Delete a user
     void deleteUser(int userId) throws UserNotFoundException;
 }

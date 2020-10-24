@@ -11,11 +11,7 @@ public interface AuthService {
 
     public USERTYPE login(String username, String password) throws UserNotFoundException;
 
-    public void logout(String username);
+    boolean logout(String username) throws UserNotFoundException;
 
-    public boolean registerStudent(Student student, String password);
 
-    public boolean registerProfessor(Professor professor, String password);
-
-    public boolean registerAdmin(Admin admin, String password);
 }

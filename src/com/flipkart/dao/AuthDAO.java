@@ -10,15 +10,15 @@ import com.flipkart.exception.UserNotFoundException;
 public interface AuthDAO {
 
     // Authenticate User
-    void login(String username, String password) throws UserNotFoundException;
+    USERTYPE login(String username, String password) throws UserNotFoundException;
 
-    // register as student
+    // registerUser as student
     public boolean registerStudent(Student student, String password);
 
-    // register as professor
+    // registerUser as professor
     public boolean  registerProfessor(Professor professor, String password);
 
-    // register as admin
+    // registerUser as admin
     public boolean registerAdmin(Admin admin, String password);
 
     public boolean logout(String username) throws UserNotFoundException;

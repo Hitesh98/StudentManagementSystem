@@ -6,11 +6,6 @@ public class Course {
     private String courseName;
     private String description;
     private int fees;
-    private int courseCatalogID;
-
-    public int getCourseCatalogID() { return courseCatalogID; }
-
-    public void setCourseCatalogID(int courseCatalogID) { this.courseCatalogID = courseCatalogID; }
 
     public int getCourseId() { return courseId; }
 

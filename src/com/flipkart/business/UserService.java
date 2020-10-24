@@ -5,14 +5,7 @@ import com.flipkart.exception.UserNotFoundException;
 
 public interface UserService {
 
-    default void viewCourseCatalog() {
+    void viewCourseCatalog();
 
-    }
-
-    boolean register(User user, String password);
-
-    boolean login(String username, String password);
-
-    boolean logout(String username) throws UserNotFoundException;
-
+    boolean registerUser(User user, String password);
 }

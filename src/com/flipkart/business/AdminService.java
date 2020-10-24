@@ -6,17 +6,15 @@ import com.flipkart.bean.User;
 
 public interface AdminService {
 
-    public void addNewUser(User user);
+    void addNewUser(User user, String password);
 
-    public boolean deleteUser(int userId);
+    boolean deleteUser(int userId);
 
-    public boolean assignCourseToProfessor(Professor professor, int courseId);
+    boolean assignCourseToProfessor(Professor professor, int courseId);
 
-    public boolean registerProfessor(Professor professor);
+    boolean addNewCourse(Course course);
 
-    public boolean addNewCourse(Course course);
+    boolean deleteCourse(Course course);
 
-    public boolean deleteCourse(Course course);
-
-    public void getAllUsers();
+    void getAllUsers();
 }

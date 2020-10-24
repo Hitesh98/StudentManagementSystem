@@ -16,13 +16,14 @@ public class AdminServiceImpl implements AdminService {
 
     private static Logger logger = Logger.getLogger(AdminServiceImpl.class);
     private static AdminDAO adminDao = new AdminDAOImpl();
+    private static UserService userService = new UserServiceImpl();
 
     /**
      * Add new User
      * @param user User object of the new user to be added
      */
-    public void addNewUser(User user) {
-        if (adminDao.registerUser(user)) {
+    public void addNewUser(User user, String password) {
+        if (userService.registerUser(user, password)) {
             logger.info("The user with username " + user.getUsername() + " added");
         } else {
             logger.error("The user with username " + user.getUsername() + " could not be added");
@@ -64,12 +65,6 @@ public class AdminServiceImpl implements AdminService {
         return true;
     }
 
-    //Register a professor
-    @Override
-    public boolean registerProfessor(Professor professor) {
-        return false;
-    }
-
     /**
      * Add a new course in the course catalog
      * @param course    new course to be added in the course catalog
@@ -96,22 +91,29 @@ public class AdminServiceImpl implements AdminService {
         return true;
     }
 
-    // View Users
+    /**
+     * Print All Users type wise
+     */
     @Override
     public void getAllUsers() {
         List<User> users = adminDao.getUsers();
-        logger.info("--Admins are:--");
+        logger.info("####### Admins ########");
         printUserByType(users, USERTYPE.Admin);
 
-        logger.info("--Professors are:--");
+        logger.info("####### Professors #######");
         printUserByType(users, USERTYPE.Professor);
 
-        logger.info("--Students are:--");
+        logger.info("####### Students #######");
         printUserByType(users, USERTYPE.Student);
     }
 
-    private void printUserByType(List<User> users, USERTYPE usertype) {
-        users.stream().filter(user -> user.getType().equals(usertype))
+    /**
+     * utility function to print particular type of user
+     * @param users     list of all users
+     * @param userType  type of user to print
+     */
+    private void printUserByType(List<User> users, USERTYPE userType) {
+        users.stream().filter(user -> user.getType().equals(userType))
                 .collect(Collectors.toList()).forEach(user -> logger.info(user.getUserId() + "\t" + user.getUsername()));
     }
 }

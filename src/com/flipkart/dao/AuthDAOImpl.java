@@ -9,7 +9,8 @@ import com.flipkart.exception.UserNotFoundException;
 public class AuthDAOImpl implements AuthDAO {
 
     @Override
-    public void login(String username, String password) throws UserNotFoundException {
+    public USERTYPE login(String username, String password) throws UserNotFoundException {
+        return null;
     }
 
     @Override
