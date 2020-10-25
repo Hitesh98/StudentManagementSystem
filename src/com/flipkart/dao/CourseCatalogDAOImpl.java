@@ -13,12 +13,11 @@ import java.util.List;
 public class CourseCatalogDAOImpl implements CourseCatalogDAO {
 
     private static Logger logger = Logger.getLogger(CourseCatalogDAOImpl.class);
-    private Connection connection = null;
+    private Connection connection = DBUtil.getConnection();
     private PreparedStatement stmt = null;
 
     @Override
     public List<Course> viewCatalog() {
-        connection = DBUtil.getConnection();
         List<Course> courseList = new ArrayList<>();
 
         try {
@@ -39,7 +38,6 @@ public class CourseCatalogDAOImpl implements CourseCatalogDAO {
 
     @Override
     public Course viewCourseFromCatalog(int courseId) {
-        connection = DBUtil.getConnection();
         PreparedStatement stmt = null;
         Course course = null;
 

@@ -17,14 +17,13 @@ import java.sql.ResultSet;
 public class AuthDAOImpl implements AuthDAO {
 
     private static Logger logger = Logger.getLogger(AuthDAOImpl.class);
-    private Connection connection = null;
+    private Connection connection = connection = DBUtil.getConnection();
     private PreparedStatement stmt = null;
 
     @Override
     public USERTYPE login(String username, String password) {
         connection = DBUtil.getConnection();
         USERTYPE type = null;
-
         try {
             stmt = connection.prepareStatement(SQLQueries.LOGIN_USER_QUERY);
             stmt.setString(1, username);
@@ -44,7 +43,7 @@ public class AuthDAOImpl implements AuthDAO {
         } finally{
             //close resources
             DBUtil.closeStmt(stmt);
-            DBUtil.closeConnection(connection);
+
         }
         return type;
     }
@@ -59,6 +58,8 @@ public class AuthDAOImpl implements AuthDAO {
             stmt.setString(2, student.getName());
             stmt.setString(3, student.getBranch());
             stmt.setString(4, student.getGender().name().toLowerCase());
+            stmt.setInt(5, student.getSemester());
+            stmt.setInt(6, student.getUserId());
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("Student with name : " + student.getName() + " was added successfully");
@@ -86,6 +87,7 @@ public class AuthDAOImpl implements AuthDAO {
             stmt.setString(3, professor.getEmail());
             stmt.setInt(4, professor.getAssignedCourseID());
             stmt.setString(5, professor.getGender().name().toLowerCase());
+            stmt.setInt(6, professor.getUserId());
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("Professor with name : " + professor.getName() + " was added successfully");
@@ -111,6 +113,7 @@ public class AuthDAOImpl implements AuthDAO {
             stmt.setInt(1, admin.getAdminID());
             stmt.setString(2, admin.getName());
             stmt.setString(3, admin.getGender().name().toLowerCase());
+            stmt.setInt(4, admin.getUserId());
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("Admin with name : " + admin.getName() + " was added successfully");
@@ -134,10 +137,12 @@ public class AuthDAOImpl implements AuthDAO {
             verifyUser.setString(1, username);
             verifyUser.setInt(2, userID);
             ResultSet rs = verifyUser.executeQuery();
-            if (!rs.next()) {
-                logger.info("Username and UserID verified successfully");
-                DBUtil.closeStmt(verifyUser);
-                return false;
+            while(rs.next()) {
+                if (rs.getInt("c") == 0) {
+                    logger.info("Username and UserID verified successfully");
+                    DBUtil.closeStmt(verifyUser);
+                    return false;
+                }
             }
             logger.error("username or userID already exists. Please try again!");
         }catch(Exception ex){
@@ -151,7 +156,6 @@ public class AuthDAOImpl implements AuthDAO {
 
     private boolean userRegistrationUnsuccessful(User user, String password) {
         PreparedStatement registerUser = null;
-
         try {
             registerUser = connection.prepareStatement(SQLQueries.REGISTER_USER_QUERY);
             registerUser.setInt(1, user.getUserId());

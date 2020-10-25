@@ -9,12 +9,14 @@ import com.flipkart.exception.UserNotFoundException;
 
 import org.apache.log4j.Logger;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class AdminDAOImpl implements AdminDAO{
 
     private static Logger logger = Logger.getLogger(AdminDAOImpl.class);
-    Connection connection = DBUtil.getConnection();
+    private Connection connection = DBUtil.getConnection();
+    private PreparedStatement stmt = null;
 
     @Override
     public ArrayList<User> getUsers() {

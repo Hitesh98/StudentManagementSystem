@@ -11,7 +11,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private static Logger logger = Logger.getLogger(UserServiceImpl.class);
-    private static AuthDAO authDao = new AuthDAOImpl();
 
     /**
      * View all courses in the course catalog
@@ -23,7 +22,7 @@ public class UserServiceImpl implements UserService {
         CourseCatalogService catalog = new CourseCatalogServiceImpl();
 
         List<Course> courses = catalog.getAllCourses();
-        logger.info("Course Id\tCourse Name\tFees\tCourse Description");
+        logger.info("Course-Id\tCourse-Name\tFees\tCourse-Description");
         courses.forEach(course -> logger.info(course.getCourseId() + "\t" + course.getCourseName() + " \t"  + course.getFees() + "\t" + course.getDescription()));
     }
 
@@ -35,6 +34,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean registerUser(User user, String password) {
+        AuthDAO authDao = new AuthDAOImpl();
         if (user.getType().equals(USERTYPE.Admin)) {
             return authDao.registerAdmin((Admin) user, password);
         } else if (user.getType().equals(USERTYPE.Student)) {
