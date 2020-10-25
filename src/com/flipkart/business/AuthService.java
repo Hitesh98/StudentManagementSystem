@@ -11,7 +11,4 @@ public interface AuthService {
 
     public USERTYPE login(String username, String password) throws UserNotFoundException;
 
-    boolean logout(String username) throws UserNotFoundException;
-
-
 }

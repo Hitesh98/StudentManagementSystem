@@ -19,28 +19,14 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public USERTYPE login(String username, String password) {
+        USERTYPE type;
         try {
-            return authDao.login(username, password);
+        type = authDao.login(username, password);
+        if (type== null) throw new UserNotFoundException("Invalid Credentials.");
         } catch (UserNotFoundException ex) {
             logger.error("User does not exist" + ex.getMessage());
             return null;
         }
-    }
-
-    /**
-     * logout user (student, professor and admin)
-     * @param username username of the user
-     * @return true if logout was successful, else false.
-     * @throws UserNotFoundException if no such user exists
-     */
-    @Override
-    public boolean logout(String username) throws UserNotFoundException {
-        try {
-            authDao.logout(username);
-            return true;
-        } catch (UserNotFoundException ex) {
-            logger.error(ex);
-            return false;
-        }
+        return type;
     }
 }

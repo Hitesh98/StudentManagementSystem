@@ -14,16 +14,16 @@ public class CourseCatalogDAOImpl implements CourseCatalogDAO {
 
     private static Logger logger = Logger.getLogger(CourseCatalogDAOImpl.class);
     private Connection connection = null;
+    private PreparedStatement stmt = null;
 
     @Override
     public List<Course> viewCatalog() {
         connection = DBUtil.getConnection();
-        PreparedStatement stmt = null;
         List<Course> courseList = new ArrayList<>();
 
         try {
             stmt = connection.prepareStatement(SQLQueries.VIEW_ALL_COURSES);
-            ResultSet rs = stmt.executeQuery(SQLQueries.VIEW_ALL_COURSES);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 courseList.add(createCourse(rs));
             }

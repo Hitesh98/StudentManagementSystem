@@ -4,6 +4,8 @@ import com.flipkart.constants.GENDER;
 
 public class Admin extends User {
 
+
+    private int adminID;
     private String name;
     private GENDER gender;
 
@@ -14,4 +16,12 @@ public class Admin extends User {
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
+
+    public int getAdminID() {
+        return adminID;
+    }
+
+    public void setAdminID(int adminID) {
+        this.adminID = adminID;
+    }
 }

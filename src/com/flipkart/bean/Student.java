@@ -8,11 +8,6 @@ public class Student extends User {
     private String branch;
     private GENDER gender;
     private int semester;
-    private boolean isRegistered;
-
-    public boolean isRegistered() { return isRegistered; }
-
-    public void setIsRegistered(boolean isRegistered) { this.isRegistered = isRegistered; }
 
     public int getSemester() { return semester; }
 

@@ -37,7 +37,7 @@ public class DBUtil {
     }
 
     public static void closeConnection(Connection connection) {
-        System.out.println("Closing Connection...");
+        logger.info("Closing Connection...");
         try {
             if(connection != null) {
                 connection.close();
