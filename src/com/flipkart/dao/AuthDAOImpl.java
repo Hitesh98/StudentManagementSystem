@@ -85,7 +85,7 @@ public class AuthDAOImpl implements AuthDAO {
             stmt.setString(2, professor.getName());
             stmt.setString(3, professor.getEmail());
             stmt.setInt(4, professor.getAssignedCourseID());
-            stmt.setString(5, professor.getGender().name());
+            stmt.setString(5, professor.getGender().name().toLowerCase());
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("Professor with name : " + professor.getName() + " was added successfully");
@@ -110,7 +110,7 @@ public class AuthDAOImpl implements AuthDAO {
             stmt = connection.prepareStatement(SQLQueries.REGISTER_ADMIN_QUERY);
             stmt.setInt(1, admin.getAdminID());
             stmt.setString(2, admin.getName());
-            stmt.setString(3, admin.getGender().name());
+            stmt.setString(3, admin.getGender().name().toLowerCase());
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("Admin with name : " + admin.getName() + " was added successfully");
@@ -157,7 +157,7 @@ public class AuthDAOImpl implements AuthDAO {
             registerUser.setInt(1, user.getUserId());
             registerUser.setString(2, user.getUsername());
             registerUser.setString(3, password);
-            registerUser.setString(4, user.getType().name());
+            registerUser.setString(4, user.getType().name().toLowerCase());
             int rowCount = registerUser.executeUpdate();
             if (rowCount > 0) {
                 logger.info("User with username : " + user.getUsername() + " was added successfully");
