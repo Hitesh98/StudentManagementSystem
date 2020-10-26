@@ -18,6 +18,6 @@ public class User {
 
     public USERTYPE getType() { return type; }
 
-    public void setRole(USERTYPE type) { this.type = type; }
+    public void setType(USERTYPE type) { this.type = type; }
 
 }

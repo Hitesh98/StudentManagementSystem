@@ -20,8 +20,8 @@ public interface StudentService {
     void viewReportCard(Student studentId);
 
     // Get total fee to be paid
-    public int getTotalFee(Student student);
+    int getTotalFee(Student student);
 
     // Pay fees of particular student
-    public void makePayment(Student student, int paymentMethod, int fees);
+    boolean makePayment(Student student, int paymentMethod, int fees);
 }

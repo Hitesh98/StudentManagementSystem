@@ -4,8 +4,6 @@ import com.flipkart.bean.*;
 import com.flipkart.constants.USERTYPE;
 import com.flipkart.dao.AdminDAO;
 import com.flipkart.dao.AdminDAOImpl;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -41,7 +39,7 @@ public class AdminServiceImpl implements AdminService {
         try {
             adminDao.deleteUser(userId);
             logger.info("The user with user ID " + userId + " deleted");
-        } catch(UserNotFoundException ex) {
+        } catch(Exception ex) {
             logger.error(ex);
             return false;
         }
@@ -85,7 +83,7 @@ public class AdminServiceImpl implements AdminService {
     public boolean deleteCourse(Course course) {
         try {
             adminDao.deleteCourse(course);
-        } catch(CourseNotFoundException ex) {
+        } catch(Exception ex) {
             logger.error(ex);
             return false;
         }

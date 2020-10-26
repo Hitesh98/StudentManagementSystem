@@ -1,21 +1,34 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.dao.ProfessorDAOImpl;
+import com.flipkart.dao.ProfessorDao;
+import org.apache.log4j.Logger;
+
+import java.util.List;
 
 public class ProfessorServiceImpl implements ProfessorService {
 
-    @Override
-    public void viewAssingedStudents(Professor professor) {
+    private static Logger logger = Logger.getLogger(ProfessorServiceImpl.class);
+    private static ProfessorDao professorDao = new ProfessorDAOImpl();
 
+    @Override
+    public void viewAssignedStudents(Professor professor) {
+        professorDao.getStudents(professor);
     }
 
     @Override
-    public String recordStudentGrades(Professor professor, int studentId, String grades, int courseId) {
-        return null;
+    public void recordStudentGrades(Professor professor, int studentId, String grades, int courseId) {
+        professorDao.recordStudentGrades(professor, studentId, grades, courseId);
     }
 
     @Override
     public void getAssignedCourse(Professor professor) {
-
+        List<Course> courseList = professorDao.getCoursesTaughtByProfessor(professor.getProfessorId());
+        logger.info("################## Course List #####################");
+        logger.info("Course Id\tCourse Name\t\tCourse Description");
+        courseList.forEach(course -> logger.info(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getDescription()));
+        logger.info("#####################################################");
     }
 }

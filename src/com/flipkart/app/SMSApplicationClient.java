@@ -37,7 +37,6 @@ public class SMSApplicationClient {
         professor.setProfessorId(Integer.parseInt(sc.next()));
         professor.setName(sc.next());
         professor.setEmail(sc.next());
-        professor.setAssignedCourseID(0);
         professor.setGender(GENDER.valueOfGender(sc.next()));
     }
 
@@ -52,6 +51,6 @@ public class SMSApplicationClient {
         logger.info("Enter userID, Username");
         user.setUserId(Integer.parseInt(sc.next()));
         user.setUsername(sc.next());
-        user.setRole(type);
+        user.setType(type);
     }
 }

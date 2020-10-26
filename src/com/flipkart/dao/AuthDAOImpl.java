@@ -28,7 +28,7 @@ public class AuthDAOImpl implements AuthDAO {
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
-            if (!rs.next()) {
+            if (rs == null) {
                 throw new UserNotFoundException("Invalid credentials. Please try again");
             }
             while (rs.next()) {
@@ -83,9 +83,8 @@ public class AuthDAOImpl implements AuthDAO {
             stmt.setInt(1, professor.getProfessorId());
             stmt.setString(2, professor.getName());
             stmt.setString(3, professor.getEmail());
-            stmt.setInt(4, professor.getAssignedCourseID());
-            stmt.setString(5, professor.getGender().name().toLowerCase());
-            stmt.setInt(6, professor.getUserId());
+            stmt.setString(4, professor.getGender().name().toLowerCase());
+            stmt.setInt(5, professor.getUserId());
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("Professor with name : " + professor.getName() + " was added successfully");

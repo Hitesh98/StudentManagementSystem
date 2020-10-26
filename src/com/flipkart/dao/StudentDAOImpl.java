@@ -30,7 +30,7 @@ public class StudentDAOImpl implements StudentDAO {
             return false;
         }
 
-        if (StudentAlreadyRegistered(student.getStudentId(), courseId)) {
+        if (studentAlreadyRegistered(student.getStudentId(), courseId)) {
             logger.error("Student already registered for the course. Try Another!");
             return false;
         }
@@ -158,12 +158,12 @@ public class StudentDAOImpl implements StudentDAO {
         return count;
     }
 
-    public boolean verifyStudentToCourseRegistration(Student student, int courseId) {
+    public boolean verifyStudentToCourseRegistration(int studentID , int courseId) {
         int count = 0;
         try {
             stmt = connection.prepareStatement(SQLQueries.VERIFY_STUDENT_WITH_COURSE);
             stmt.setInt(1,courseId);
-            stmt.setInt(2, student.getStudentId());
+            stmt.setInt(2, studentID);
             ResultSet rs = stmt.executeQuery();
             if(rs.next()) {
                 count = rs.getInt(1);
@@ -271,7 +271,7 @@ public class StudentDAOImpl implements StudentDAO {
         return true;
     }
 
-    private boolean StudentAlreadyRegistered(int studentId, int courseId) {
+    private boolean studentAlreadyRegistered(int studentId, int courseId) {
         PreparedStatement studentCheck = null;
         try {
             studentCheck = connection.prepareStatement(SQLQueries.VERIFY_STUDENT_WITH_COURSE);

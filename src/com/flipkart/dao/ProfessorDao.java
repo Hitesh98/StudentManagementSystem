@@ -8,14 +8,14 @@ import java.util.List;
 public interface ProfessorDao {
 
     // get students in particular professor's course
-    public void getStudents(Professor professor);
+    void getStudents(Professor professor);
 
     // Get professor Details
-    public Professor getProfessorDetails(int professorID);
+    Professor getProfessorDetails(int professorID);
 
-    // get assigned course to particular professor
-    public Course getCourse(Professor professor);
+    // Get courses taught by professor
+    List<Course> getCoursesTaughtByProfessor(int professorID);
 
     // record Student grades
-    public void recordStudentGrades(Professor professor, int studentId, String grade, int courseId);
+    void recordStudentGrades(Professor professor, int studentId, String grade, int courseId);
 }

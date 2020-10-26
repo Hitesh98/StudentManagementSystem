@@ -3,15 +3,13 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.User;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.UserNotFoundException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface AdminDAO {
 
     // get All Users from database
-    ArrayList<User> getUsers();
+    List<User> getUsers();
 
     // Assign course to professor
     void assignCourseToProfessor(Professor professor, int courseId);
@@ -19,9 +17,12 @@ public interface AdminDAO {
     // Add new courses to course catalog
     boolean addNewCourse(Course course);
 
+    //update assigned course to professor
+    boolean updateProfessorForCourse(int professorId, int courseId);
+
     // Delete course from course catalog
-    void deleteCourse(Course course) throws CourseNotFoundException;
+    void deleteCourse(Course course);
 
     //Delete a user
-    void deleteUser(int userId) throws UserNotFoundException;
+    void deleteUser(int userId);
 }

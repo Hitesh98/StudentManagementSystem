@@ -7,7 +7,6 @@ public class Professor extends User {
     private int professorId;
     private String name;
     private String email;
-    private int assignedCourseID;
     private GENDER gender;
 
     public GENDER getGender() { return gender; }
@@ -26,7 +25,4 @@ public class Professor extends User {
 
     public void setName(String name) { this.name = name; }
 
-    public int getAssignedCourseID() { return assignedCourseID; }
-
-    public void setAssignedCourseID(int assignedCourseID) { this.assignedCourseID = assignedCourseID; }
 }
