@@ -21,6 +21,7 @@ public class AdminServiceImpl implements AdminService {
     /**
      * Add new User
      * @param user User object of the new user to be added
+     * @param password user password
      */
     public void addNewUser(User user, String password) {
         if (userService.registerUser(user, password)) {

@@ -5,6 +5,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseNotFoundException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface StudentDAO {
@@ -17,7 +18,7 @@ public interface StudentDAO {
 
 
     // view registered courses of particular student
-    public ArrayList<Course> viewRegisteredCourses(Student student);
+    public List<Course> viewRegisteredCourses(Student student);
 
     // drop a course for a particular student
     public void dropCourse(int courseId, int studentId) throws CourseNotFoundException;
@@ -32,5 +33,5 @@ public interface StudentDAO {
     public int getTotalFee(Student student);
 
     //Proceed for payment
-    public String makePayment(Student student, int paymentMethod, int fees);
+    public boolean makePayment(Student student, int paymentMethod, int fees);
 }

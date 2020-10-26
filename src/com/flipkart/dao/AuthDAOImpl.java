@@ -17,12 +17,11 @@ import java.sql.ResultSet;
 public class AuthDAOImpl implements AuthDAO {
 
     private static Logger logger = Logger.getLogger(AuthDAOImpl.class);
-    private Connection connection = connection = DBUtil.getConnection();
+    private Connection connection = DBUtil.getConnection();
     private PreparedStatement stmt = null;
 
     @Override
     public USERTYPE login(String username, String password) {
-        connection = DBUtil.getConnection();
         USERTYPE type = null;
         try {
             stmt = connection.prepareStatement(SQLQueries.LOGIN_USER_QUERY);
@@ -43,7 +42,6 @@ public class AuthDAOImpl implements AuthDAO {
         } finally{
             //close resources
             DBUtil.closeStmt(stmt);
-
         }
         return type;
     }
@@ -137,7 +135,7 @@ public class AuthDAOImpl implements AuthDAO {
             verifyUser.setString(1, username);
             verifyUser.setInt(2, userID);
             ResultSet rs = verifyUser.executeQuery();
-            while(rs.next()) {
+            if(rs.next()) {
                 if (rs.getInt("c") == 0) {
                     logger.info("Username and UserID verified successfully");
                     DBUtil.closeStmt(verifyUser);

@@ -15,6 +15,7 @@ public class SMSApplicationClient {
 
     public static void main(String[] args) {
 
+
         UserService userService = new UserServiceImpl();
         //userService.viewCourseCatalog();
         Professor professor = new Professor();
