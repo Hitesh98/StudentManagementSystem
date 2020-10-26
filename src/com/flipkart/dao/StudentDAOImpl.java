@@ -5,7 +5,6 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.GENDER;
 import com.flipkart.constants.SQLQueries;
-import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 
@@ -25,7 +24,7 @@ public class StudentDAOImpl implements StudentDAO {
     private PreparedStatement stmt = null;
 
     @Override
-    public boolean selectCourse(Student student, int courseId) throws CourseNotFoundException {
+    public boolean selectCourse(Student student, int courseId) {
         if (CourseLimitReached(courseId)) {
             logger.error("Course limit reached. Choose another course");
             return false;
@@ -120,7 +119,7 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public void dropCourse(int courseId, int studentId) throws CourseNotFoundException {
+    public boolean dropCourse(int courseId, int studentId) {
         try {
             stmt = connection.prepareStatement(SQLQueries.DROP_COURSE_FOR_STUDENT);
             stmt.setInt(1, courseId);
@@ -128,6 +127,7 @@ public class StudentDAOImpl implements StudentDAO {
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("course with courseID : " + courseId + " was dropped for student with studentID : " + studentId);
+                return true;
             } else {
                 logger.error("Course not found. Could not be dropped.");
             }
@@ -137,6 +137,7 @@ public class StudentDAOImpl implements StudentDAO {
             //close resources
             DBUtil.closeStmt(stmt);
         }
+        return false;
     }
 
     @Override
@@ -179,7 +180,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Map<String, String> viewReportCard(Student student) {
-        Map<String, String> reportCard = new HashMap<String, String>();
+        Map<String, String> reportCard = new HashMap<>();
         try {
             stmt = connection.prepareStatement(SQLQueries.VIEW_GRADES_QUERY);
             stmt.setInt(1, student.getStudentId());
