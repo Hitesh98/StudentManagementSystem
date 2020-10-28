@@ -6,18 +6,23 @@ import com.flipkart.bean.Student;
 import com.flipkart.constants.GENDER;
 import com.flipkart.constants.SQLQueries;
 import com.flipkart.constants.USERTYPE;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Student dao.
+ */
 public class StudentDAOImpl implements StudentDAO {
 
     private static Logger logger = Logger.getLogger(StudentDAOImpl.class);
@@ -25,20 +30,20 @@ public class StudentDAOImpl implements StudentDAO {
     private PreparedStatement stmt = null;
 
     @Override
-    public boolean selectCourse(Student student, int courseId) {
+    public void selectCourse(Student student, int courseId) {
         if (CourseLimitReached(courseId)) {
             logger.error("Course limit reached. Choose another course");
-            return false;
+            return;
         }
 
         if (studentAlreadyRegistered(student.getStudentId(), courseId)) {
             logger.error("Student already registered for the course. Try Another!");
-            return false;
+            return;
         }
 
         if (StudentCourseLimitReached(student.getStudentId())) {
             logger.error("Course limit per student reached.");
-            return false;
+            return;
         }
         try {
             stmt = connection.prepareStatement(SQLQueries.REGISTER_STUDENT_FOR_COURSE);
@@ -48,21 +53,20 @@ public class StudentDAOImpl implements StudentDAO {
             if (rowCount > 0) {
                 logger.info(student.getName() + " was registered for course : " + courseId + " successfully");
                 DBUtil.closeStmt(stmt);
-                return true;
+                return;
             }
-            logger.error("admin could not be registered. Please try again.");
+            logger.error("Student could not be registered for the course. Please try again.");
         } catch(Exception ex) {
             logger.error(ex.getMessage());
         } finally {
             //close resources
             DBUtil.closeStmt(stmt);
         }
-        return false;
     }
 
 
     @Override
-    public Student getStudentDetails(String username) {
+    public Student getStudentDetails(String username) throws UserNotFoundException {
         Student student = new Student();
         try {
             stmt = connection.prepareStatement(SQLQueries.GET_USER_DETAILS);
@@ -88,7 +92,7 @@ public class StudentDAOImpl implements StudentDAO {
             } else {
                 throw new UserNotFoundException("User with username : " + username + " does not exist");
             }
-        } catch(Exception ex) {
+        } catch(SQLException ex) {
             logger.error(ex.getMessage());
         } finally {
             //close resources
@@ -122,7 +126,7 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public boolean dropCourse(int courseId, int studentId) {
+    public void dropCourse(int courseId, int studentId) throws CourseNotFoundException {
         try {
             stmt = connection.prepareStatement(SQLQueries.DROP_COURSE_FOR_STUDENT);
             stmt.setInt(1, courseId);
@@ -130,17 +134,15 @@ public class StudentDAOImpl implements StudentDAO {
             int rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("course with courseID : " + courseId + " was dropped for student with studentID : " + studentId);
-                return true;
             } else {
-                logger.error("Course not found. Could not be dropped.");
+                throw new CourseNotFoundException("Course not found. Could not be dropped.");
             }
-        } catch(Exception ex) {
+        } catch(SQLException ex) {
             logger.error(ex.getMessage());
         } finally {
             //close resources
             DBUtil.closeStmt(stmt);
         }
-        return false;
     }
 
     @Override
@@ -161,6 +163,13 @@ public class StudentDAOImpl implements StudentDAO {
         return count;
     }
 
+    /**
+     * Verify student to course registration boolean.
+     *
+     * @param studentID the student id
+     * @param courseId  the course id
+     * @return the boolean
+     */
     public boolean verifyStudentToCourseRegistration(int studentID , int courseId) {
         int count = 0;
         try {

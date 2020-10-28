@@ -16,6 +16,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Professor dao.
+ */
 public class ProfessorDAOImpl implements ProfessorDAO {
 
     private static Logger logger = Logger.getLogger(ProfessorDAOImpl.class);

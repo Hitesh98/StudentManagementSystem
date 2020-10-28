@@ -11,6 +11,9 @@ import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
+/**
+ * The Professor application client.
+ */
 public class ProfessorApplicationClient {
 
     private static Logger logger = Logger.getLogger(ProfessorApplicationClient.class);
@@ -19,7 +22,12 @@ public class ProfessorApplicationClient {
     private UserService userService = new UserServiceImpl();
     private Scanner sc = new Scanner(System.in);
 
-    // Display menu for professor
+    /**
+     * Display Professor options menu.
+     *
+     * @param professor the professor
+     */
+// Display menu for professor
     public void displayMenu(Professor professor) {
         int option;
         do {

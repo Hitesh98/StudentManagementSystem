@@ -4,11 +4,23 @@ import com.flipkart.bean.Course;
 
 import java.util.List;
 
+/**
+ * The interface Course catalog service.
+ */
 public interface CourseCatalogService {
 
-    // get all available courses in Course Catalog
+    /**
+     * View all courses from course catalog
+     *
+     * @return List of all courses from course catalog
+     */
     public List<Course> getAllCourses();
 
-    // get particular course from Course Catalog
+    /**
+     * View particular course from course catalog
+     *
+     * @param courseId courseID of the course to get from the course catalog
+     * @return Course object of the required course
+     */
     public Course viewCourseFromCatalog(int courseId);
 }

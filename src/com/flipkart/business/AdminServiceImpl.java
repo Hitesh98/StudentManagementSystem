@@ -5,11 +5,15 @@ import com.flipkart.constants.USERTYPE;
 import com.flipkart.dao.AdminDAO;
 import com.flipkart.dao.AdminDAOImpl;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
+/**
+ * The type Admin service.
+ */
 public class AdminServiceImpl implements AdminService {
 
     private static Logger logger = Logger.getLogger(AdminServiceImpl.class);
@@ -47,7 +51,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
-     *
      * @param professor Professor object to which the course is to be assigned
      * @param courseId  course ID of the course to be assigned
      * @return true if course was assigned succesfull, else false
@@ -66,6 +69,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * Add a new course in the course catalog
+     *
      * @param course    new course to be added in the course catalog
      * @return true if added successfully, else false.
      */
@@ -111,7 +115,7 @@ public class AdminServiceImpl implements AdminService {
      * @param users     list of all users
      * @param userType  type of user to print
      */
-    private void printUserByType(List<User> users, USERTYPE userType) {
+    private void printUserByType(@NotNull List<User> users, USERTYPE userType) {
         users.stream().filter(user -> user.getType().equals(userType))
                 .collect(Collectors.toList()).forEach(user -> logger.info(user.getUserId() + "\t" + user.getUsername()));
     }

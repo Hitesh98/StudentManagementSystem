@@ -6,6 +6,9 @@ import com.flipkart.dao.AuthDAOImpl;
 import com.flipkart.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 
+/**
+ * The type Auth service.
+ */
 public class AuthServiceImpl implements AuthService {
 
     private static Logger logger = Logger.getLogger(AuthServiceImpl.class);
@@ -13,6 +16,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * Login user (student, professor and admin)
+     *
      * @param username  username
      * @param password  respective password
      * @return type of user if login was successful, else null

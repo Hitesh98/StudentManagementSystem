@@ -11,6 +11,9 @@ import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
+/**
+ * The Admin application client.
+ */
 public class AdminApplicationClient {
 
     private static Logger logger = Logger.getLogger(AdminApplicationClient.class);
@@ -19,7 +22,9 @@ public class AdminApplicationClient {
     private UserService userService = new UserServiceImpl();
     private Scanner sc = new Scanner(System.in);
 
-    // Display menu for the admin
+    /**
+     * Display Admin options menu.
+     */
     public void displayMenu() {
         int option;
         do {
@@ -55,7 +60,10 @@ public class AdminApplicationClient {
         sc.close();
     }
 
-    // Show available choices
+    /**
+     * Show available choices
+     */
+
     private void displayOptions() {
         logger.info("Enter your choice : ");
         logger.info("1. View all courses");

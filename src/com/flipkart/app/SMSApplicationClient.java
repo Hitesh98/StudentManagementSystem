@@ -14,13 +14,24 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * The Student management system application client.
+ */
 public class SMSApplicationClient {
 
     private static Scanner sc = new Scanner(System.in);
     private static Logger logger = Logger.getLogger(SMSApplicationClient.class);
 
+    /**
+     * The Is logged in boolean variable.
+     */
     static boolean isLoggedIn;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         logger.info("Welcome to student management system!!");
         SMSApplicationClient.displayMenu();
@@ -130,7 +141,10 @@ public class SMSApplicationClient {
         sc.close();
     }
 
-    // Logout method
+    /**
+     * Logout.
+     */
+// Logout method
     public static void logout() {
         SMSApplicationClient.isLoggedIn = false;
         logger.info("##################### Logged out at: " + new Date() + " ###################");

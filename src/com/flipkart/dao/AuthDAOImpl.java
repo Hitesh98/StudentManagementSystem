@@ -14,6 +14,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * The type Auth dao.
+ */
 public class AuthDAOImpl implements AuthDAO {
 
     private static Logger logger = Logger.getLogger(AuthDAOImpl.class);

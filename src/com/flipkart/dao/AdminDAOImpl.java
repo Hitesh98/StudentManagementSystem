@@ -15,6 +15,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Admin dao.
+ */
 public class AdminDAOImpl implements AdminDAO{
 
     private static Logger logger = Logger.getLogger(AdminDAOImpl.class);

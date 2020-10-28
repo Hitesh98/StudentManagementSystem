@@ -10,6 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Course catalog dao.
+ */
 public class CourseCatalogDAOImpl implements CourseCatalogDAO {
 
     private static Logger logger = Logger.getLogger(CourseCatalogDAOImpl.class);

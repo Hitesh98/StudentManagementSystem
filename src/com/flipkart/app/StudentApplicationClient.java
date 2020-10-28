@@ -6,10 +6,14 @@ import com.flipkart.business.StudentService;
 import com.flipkart.business.StudentServiceImpl;
 import com.flipkart.business.UserService;
 import com.flipkart.business.UserServiceImpl;
+import com.flipkart.exception.CourseNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
+/**
+ * The Student application client.
+ */
 public class StudentApplicationClient {
 
     private static Logger logger = Logger.getLogger(StudentApplicationClient.class);
@@ -18,37 +22,46 @@ public class StudentApplicationClient {
     private UserService userService = new UserServiceImpl();
     private Scanner sc = new Scanner(System.in);
 
-    // Display the Student Menu
+    /**
+     * Display student options menu.
+     *
+     * @param student the student
+     */
+// Display the Student Menu
     public void displayMenu(Student student) {
         int option;
         do {
             this.student = student;
             displayOptions();
             option = Integer.parseInt(sc.nextLine());
-            switch(option) {
-                case 1:
-                    userService.viewCourseCatalog();
-                    break;
-                case 2:
-                    selectCourse();
-                    break;
-                case 3:
-                    dropCourse();
-                    break;
-                case 4:
-                    studentService.viewRegisteredCourses(student);
-                    break;
-                case 5:
-                    payFees();
-                    break;
-                case 6:
-                    printReportCard();
-                    break;
-                case 0:
-                    SMSApplicationClient.logout();
-                    break;
-                default:
-                    logger.error("Enter correct option. Try again!");
+            try {
+                switch (option) {
+                    case 1:
+                        userService.viewCourseCatalog();
+                        break;
+                    case 2:
+                        selectCourse();
+                        break;
+                    case 3:
+                        dropCourse();
+                        break;
+                    case 4:
+                        studentService.viewRegisteredCourses(student);
+                        break;
+                    case 5:
+                        payFees();
+                        break;
+                    case 6:
+                        printReportCard();
+                        break;
+                    case 0:
+                        SMSApplicationClient.logout();
+                        break;
+                    default:
+                        logger.error("Enter correct option. Try again!");
+                }
+            } catch (Exception ex) {
+                logger.error(ex.getMessage());
             }
 
         }while(SMSApplicationClient.isLoggedIn);
@@ -81,7 +94,7 @@ public class StudentApplicationClient {
     }
 
     // Gets course id to delete from student's registered courses
-    private void dropCourse() {
+    private void dropCourse() throws CourseNotFoundException {
         Course course = new Course();
         logger.info("Enter course id:");
         int courseId = Integer.parseInt(sc.nextLine());

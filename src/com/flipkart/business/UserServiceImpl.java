@@ -8,12 +8,15 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
+/**
+ * The type User service.
+ */
 public class UserServiceImpl implements UserService {
 
     private static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     /**
-     * View all courses in the course catalog
+     * Views all courses in the course catalog
      */
     @Override
     public void viewCourseCatalog() {
@@ -27,7 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Register user (student, professor and admin)
+     * Registers user (student, professor and admin)
+     *
      * @param user      User Object of the user to registerUser
      * @param password  Password to set for the user
      * @return true if user was registered, else false.

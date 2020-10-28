@@ -5,20 +5,50 @@ import com.flipkart.bean.Professor;
 
 import java.util.List;
 
+/**
+ * The interface Professor dao.
+ */
 public interface ProfessorDAO {
 
-    // get students in particular professor's course
+    /**
+     * Gets all students assigned to professor.
+     *
+     * @param professor the professor to query students for
+     */
     void getStudents(Professor professor);
 
-    // Get professor Details
+    /**
+     * Gets professor details.
+     *
+     * @param username the username of the professor
+     * @return the professor details
+     */
     Professor getProfessorDetails(String username);
 
-    // Get courses taught by professor
+    /**
+     * Gets courses taught by professor.
+     *
+     * @param professorID the professor id
+     * @return list of the courses taught by professor
+     */
     List<Course> getCoursesTaughtByProfessor(int professorID);
 
-    // record Student grades
+    /**
+     * Records student grades
+     *
+     * @param professor The professor recording the grades
+     * @param studentId StudentID of the student whose grades need to be recorded
+     * @param grade Grades being assigned to the student for the course
+     * @param courseId The course for which the student is being graded
+     */
     void recordStudentGrades(Professor professor, int studentId, String grade, int courseId);
 
-    //verify if professor teaches particular course
+    /**
+     * Verify professor to course registration.
+     *
+     * @param professorID the professor id
+     * @param courseId    the course id
+     * @return true if professor has been assigned the course, else false
+     */
     public boolean verifyProfessorToCourseRegistration(int professorID , int courseId);
 }
