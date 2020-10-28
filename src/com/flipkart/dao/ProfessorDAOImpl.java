@@ -6,6 +6,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.GENDER;
 import com.flipkart.constants.SQLQueries;
+import com.flipkart.constants.USERTYPE;
 import com.flipkart.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 
@@ -15,7 +16,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfessorDAOImpl implements ProfessorDao {
+public class ProfessorDAOImpl implements ProfessorDAO {
 
     private static Logger logger = Logger.getLogger(ProfessorDAOImpl.class);
     private Connection connection = DBUtil.getConnection();
@@ -70,28 +71,31 @@ public class ProfessorDAOImpl implements ProfessorDao {
     }
 
     @Override
-    public Professor getProfessorDetails(int professorID) {
+    public Professor getProfessorDetails(String username) {
         Professor professor = new Professor();
         try {
-            stmt = connection.prepareStatement(SQLQueries.GET_PROFESSOR_DETAILS);
-            stmt.setInt(1, professorID);
+            stmt = connection.prepareStatement(SQLQueries.GET_USER_DETAILS);
+            //stmt = connection.prepareStatement(SQLQueries.GET_PROFESSOR_DETAILS);
+            stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                professor.setName(rs.getString("professorname"));
-                professor.setEmail(rs.getString("email"));
-                professor.setGender(GENDER.valueOfGender(rs.getString("gender")));
-                professor.setProfessorId(professorID);
                 professor.setUserId(rs.getInt("userid"));
-                stmt = connection.prepareStatement(SQLQueries.GET_USER_DETAILS);
+                professor.setUsername(username);
+                professor.setType(USERTYPE.Professor);
+                stmt = connection.prepareStatement(SQLQueries.GET_PROFESSOR_DETAILS);
                 stmt.setInt(1, professor.getUserId());
                 rs = stmt.executeQuery();
+
                 if (rs.next()) {
-                    professor.setUsername(rs.getString("username"));
+                    professor.setName(rs.getString("professorname"));
+                    professor.setEmail(rs.getString("email"));
+                    professor.setGender(GENDER.valueOfGender(rs.getString("gender")));
+                    professor.setProfessorId(rs.getInt("professorID"));
                 } else {
-                    throw new UserNotFoundException("User with ID : " + professor.getUserId() + " does not exist");
+                    throw new UserNotFoundException("professor with username : " + username + " does not exist");
                 }
             } else {
-                throw new UserNotFoundException("student with ID : " + professorID + " does not exist");
+                throw new UserNotFoundException("User with username : " + username + " does not exist");
             }
         } catch(Exception ex) {
             logger.error(ex.getMessage());
@@ -132,7 +136,7 @@ public class ProfessorDAOImpl implements ProfessorDao {
         }
     }
 
-    private boolean verifyProfessorToCourseRegistration(int professorID , int courseId) {
+    public boolean verifyProfessorToCourseRegistration(int professorID , int courseId) {
         int count = 0;
         try {
             stmt = connection.prepareStatement(SQLQueries.VERIFY_PROFESSOR_WITH_COURSE);

@@ -7,6 +7,7 @@ import com.flipkart.bean.User;
 import com.flipkart.constants.SQLQueries;
 import com.flipkart.constants.USERTYPE;
 
+import com.flipkart.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -107,10 +108,35 @@ public class AdminDAOImpl implements AdminDAO{
 
     @Override
     public void deleteUser(int userId) {
+        USERTYPE type = null;
         try {
-            stmt = connection.prepareStatement(SQLQueries.DELETE_USER_QUERY);
+            stmt = connection.prepareStatement(SQLQueries.GET_USER_ROLE);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                type = USERTYPE.valueOfType(rs.getString("role"));
+            } else {
+                throw new UserNotFoundException("No such user exists");
+            }
+            String userToDelteQuery;
+            if (type == USERTYPE.Student) {
+                userToDelteQuery = SQLQueries.DELETE_STUDENT_QUERY;
+            } else if (type == USERTYPE.Professor) {
+                userToDelteQuery = SQLQueries.DELETE_PROFESSOR_QUERY;
+            } else {
+                userToDelteQuery = SQLQueries.DELETE_ADMIN_QUERY;
+            }
+            stmt = connection.prepareStatement(userToDelteQuery);
             stmt.setInt(1,userId);
             int rowCount = stmt.executeUpdate();
+            if (rowCount > 0) {
+                logger.info(type.name() + " was removed successfully");
+            } else {
+                logger.error(type.name() + " could not be removed. Try Again!");
+            }
+            stmt = connection.prepareStatement(SQLQueries.DELETE_USER_QUERY);
+            stmt.setInt(1,userId);
+            rowCount = stmt.executeUpdate();
             if (rowCount > 0) {
                 logger.info("User was removed successfully");
             } else {

@@ -12,7 +12,7 @@ public interface StudentDAO {
     boolean selectCourse(Student student, int courseId);
 
     // Get Student Details
-    Student getStudentDetails(int studentID);
+    Student getStudentDetails(String username);
 
 
     // view registered courses of particular student

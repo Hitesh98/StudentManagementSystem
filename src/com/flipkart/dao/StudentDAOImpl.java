@@ -5,6 +5,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.GENDER;
 import com.flipkart.constants.SQLQueries;
+import com.flipkart.constants.USERTYPE;
 import com.flipkart.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 
@@ -61,29 +62,31 @@ public class StudentDAOImpl implements StudentDAO {
 
 
     @Override
-    public Student getStudentDetails(int studentID) {
+    public Student getStudentDetails(String username) {
         Student student = new Student();
         try {
-            stmt = connection.prepareStatement(SQLQueries.GET_STUDENT_DETAILS);
-            stmt.setInt(1, studentID);
+            stmt = connection.prepareStatement(SQLQueries.GET_USER_DETAILS);
+            //stmt = connection.prepareStatement(SQLQueries.GET_STUDENT_DETAILS);
+            stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                student.setName(rs.getString("studentname"));
-                student.setBranch(rs.getString("branch"));
-                student.setGender(GENDER.valueOfGender(rs.getString("geder")));
-                student.setSemester(rs.getInt("semester"));
-                student.setStudentId(studentID);
                 student.setUserId(rs.getInt("userid"));
-                stmt = connection.prepareStatement(SQLQueries.GET_USER_DETAILS);
+                student.setUsername(username);
+                student.setType(USERTYPE.Student);
+                stmt = connection.prepareStatement(SQLQueries.GET_STUDENT_DETAILS);
                 stmt.setInt(1, student.getUserId());
                 rs = stmt.executeQuery();
                 if (rs.next()) {
-                    student.setUsername(rs.getString("username"));
+                    student.setName(rs.getString("studentname"));
+                    student.setBranch(rs.getString("branch"));
+                    student.setGender(GENDER.valueOfGender(rs.getString("gender")));
+                    student.setSemester(rs.getInt("semester"));
+                    student.setStudentId(rs.getInt("studentid"));
                 } else {
-                    throw new UserNotFoundException("User with ID : " + student.getUserId() + " does not exist");
+                    throw new UserNotFoundException("student with username : " + username + " does not exist");
                 }
             } else {
-                throw new UserNotFoundException("student with ID : " + studentID + " does not exist");
+                throw new UserNotFoundException("User with username : " + username + " does not exist");
             }
         } catch(Exception ex) {
             logger.error(ex.getMessage());

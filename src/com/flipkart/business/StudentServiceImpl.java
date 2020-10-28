@@ -35,8 +35,11 @@ public class StudentServiceImpl implements StudentService {
             logger.info("No registered courses");
         }
         else {
+            logger.info("############# Report Card ################");
+            logger.info("Course\tGrade");
             logger.info("Course-Id\tCourse-Name");
             courseList.forEach(course -> logger.info(course.getCourseId() +  "\t\t " + course.getCourseName()));
+            logger.info("###########################################");
         }
     }
 

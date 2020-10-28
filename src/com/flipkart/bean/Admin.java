@@ -1,6 +1,7 @@
 package com.flipkart.bean;
 
 import com.flipkart.constants.GENDER;
+import com.flipkart.constants.USERTYPE;
 
 public class Admin extends User {
 
@@ -8,6 +9,11 @@ public class Admin extends User {
     private int adminID;
     private String name;
     private GENDER gender;
+
+    public Admin() {
+        super();
+        this.setType(USERTYPE.Admin);
+    }
 
     public GENDER getGender() { return gender; }
 

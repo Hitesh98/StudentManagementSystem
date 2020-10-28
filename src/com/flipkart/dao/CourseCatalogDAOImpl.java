@@ -31,7 +31,6 @@ public class CourseCatalogDAOImpl implements CourseCatalogDAO {
         } finally{
             //close resources
             DBUtil.closeStmt(stmt);
-            DBUtil.closeConnection(connection);
         }
         return courseList;
     }
@@ -54,7 +53,6 @@ public class CourseCatalogDAOImpl implements CourseCatalogDAO {
         } finally{
             //close resources
             DBUtil.closeStmt(stmt);
-            DBUtil.getConnection();
         }
         return course;
     }
