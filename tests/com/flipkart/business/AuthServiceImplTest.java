@@ -1,10 +1,5 @@
 package com.flipkart.business;
 
-import com.flipkart.bean.Admin;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
-import com.flipkart.constants.GENDER;
 import com.flipkart.constants.USERTYPE;
 import org.junit.After;
 import org.junit.Before;
@@ -33,25 +28,25 @@ public class AuthServiceImplTest {
     @Test
     public void loginStudent() {
         adminService.addNewUser(dummyConstants.dummyStudent, DummyConstants.password);
-        USERTYPE usertype = authService.login(DummyConstants.username, DummyConstants.password);
+        USERTYPE usertype = authService.login(DummyConstants.susername, DummyConstants.password);
         assertEquals(USERTYPE.Student, usertype);
-        adminService.deleteUser(DummyConstants.userid);
+        adminService.deleteUser(DummyConstants.suserid);
     }
 
     @Test
     public void loginProfessor() {
         adminService.addNewUser(dummyConstants.dummyProfessor, DummyConstants.password);
-        USERTYPE usertype = authService.login(DummyConstants.username, DummyConstants.password);
+        USERTYPE usertype = authService.login(DummyConstants.pusername, DummyConstants.password);
         assertEquals(USERTYPE.Professor, usertype);
-        adminService.deleteUser(DummyConstants.userid);
+        adminService.deleteUser(DummyConstants.puserid);
     }
 
     @Test
     public void loginAdmin() {
         adminService.addNewUser(dummyConstants.dummyAdmin, DummyConstants.password);
-        USERTYPE usertype = authService.login(DummyConstants.username, DummyConstants.password);
+        USERTYPE usertype = authService.login(DummyConstants.ausername, DummyConstants.password);
         assertEquals(USERTYPE.Admin, usertype);
-        adminService.deleteUser(DummyConstants.userid);
+        adminService.deleteUser(DummyConstants.auserid);
     }
 
     @Test

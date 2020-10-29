@@ -15,10 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The type Student dao.
@@ -111,6 +108,7 @@ public class StudentDAOImpl implements StudentDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 courseIds.add(rs.getInt("courseid"));
+                logger.info("check: "  + rs.getInt("courseid"));
             }
             CourseCatalogDAO catalogDao = new CourseCatalogDAOImpl();
             for (int c : courseIds) {
@@ -236,11 +234,11 @@ public class StudentDAOImpl implements StudentDAO {
             stmt = connection.prepareStatement(SQLQueries.MAKE_PAYMENT_QUERY);
             stmt.setInt(1, student.getStudentId());
             stmt.setInt(2, fees);
-            LocalDateTime dateTime = LocalDateTime.now();
-            stmt.setObject(3, dateTime);
+            Date date = new Date();
+            stmt.setObject(3, date);
             stmt.setInt(4, paymentMethod);
             int rowCount = stmt.executeUpdate();
-            if(rowCount > 0) {
+            if (rowCount > 0) {
                 PreparedStatement afterPayment = null;
                 try {
                     afterPayment = connection.prepareStatement(SQLQueries.UPDATE_AFTER_PAYMENT);

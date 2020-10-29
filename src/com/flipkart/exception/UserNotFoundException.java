@@ -2,14 +2,16 @@ package com.flipkart.exception;
 
 public class UserNotFoundException extends Exception {
 
-    private String userName;
+    private String message;
 
-    public UserNotFoundException(String userName) {
+    public UserNotFoundException(String message) {
         super();
-        this.userName = userName;
+        this.message = message;
     }
 
-    public String getUserName() {
-        return userName;
+    @Override
+    public String getMessage(){
+        return this.message;
     }
+
 }

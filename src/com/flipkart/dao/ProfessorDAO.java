@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface ProfessorDAO {
      *
      * @param professor the professor to query students for
      */
-    void getStudents(Professor professor);
+    ResultSet getStudents(Professor professor);
 
     /**
      * Gets professor details.

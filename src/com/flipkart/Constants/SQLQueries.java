@@ -29,7 +29,7 @@ public class SQLQueries {
     //Professor related Queries
     public static final String REGISTER_PROFESSOR_QUERY = "insert into professor(professorid, professorname, email, gender, userid) values (?,?,?,?,?)";
     public static final String GET_STUDENTS_TO_TEACH = "select rc.studentid, rc.courseid, s.studentname, s.branch, s.gender, s.semester from student s join registeredcourses rc on rc.studentid = s.studentid where rc.courseid in (select courseid from professorcourses where professorid = ?) order by rc.courseid";
-    public static final String GET_COURSE_TAUGHT_BY_PROFESSOR = "select p.courseid, c.coursename, c.coursedescription, c.fees from professorcoursees p join coursecatalog c on c.courseid = p.courseid where p.professorid = ?";
+    public static final String GET_COURSE_TAUGHT_BY_PROFESSOR = "select p.courseid, c.coursename, c.description, c.fees from professorcourses p join coursecatalog c on c.courseid = p.courseid where p.professorid = ?";
     public static final String GET_PROFESSOR_DETAILS = "select * from professor where userid = ?";
     public static final String GRADE_STUDENT = "update registeredcourses set grade = ? where studentid = ? and courseid = ?";
     public static final String VERIFY_PROFESSOR_WITH_COURSE = "select count(*) as c from professorcourses where courseid = ? AND professorid = ?";

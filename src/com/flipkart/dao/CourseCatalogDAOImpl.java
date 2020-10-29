@@ -46,8 +46,8 @@ public class CourseCatalogDAOImpl implements CourseCatalogDAO {
         try {
             stmt = connection.prepareStatement(SQLQueries.GET_COURSE);
             stmt.setInt(1, courseId);
-            ResultSet rs = stmt.executeQuery(SQLQueries.GET_COURSE);
-            if (!rs.next()) throw new CourseNotFoundException("Invalid Course ID");
+            ResultSet rs = stmt.executeQuery();
+            if (rs == null) throw new CourseNotFoundException("Invalid Course ID");
             if (rs.next()) {
                 course = createCourse(rs);
             }

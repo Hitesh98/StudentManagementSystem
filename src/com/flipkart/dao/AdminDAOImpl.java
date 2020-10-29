@@ -49,7 +49,9 @@ public class AdminDAOImpl implements AdminDAO{
 
     @Override
     public void assignCourseToProfessor(Professor professor, int courseId) {
+        ProfessorDAO professorDAO = new ProfessorDAOImpl();
         try {
+
             stmt = connection.prepareStatement(SQLQueries.ASSIGN_PROFESSOR_QUERY);
             stmt.setInt(1, courseId);
             stmt.setInt(2, professor.getProfessorId());

@@ -36,6 +36,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void selectCourse(Student student, int courseId) {
         studentDao.selectCourse(student, courseId);
+        logger.info("Student registered for course successfully!");
     }
 
     /**
@@ -62,10 +63,11 @@ public class StudentServiceImpl implements StudentService {
             logger.info("No registered courses");
         }
         else {
-            logger.info("############# Report Card ################");
-            logger.info("Course\tGrade");
+            logger.info("############# Registered Courses ################");
             logger.info("Course-Id\tCourse-Name");
-            courseList.forEach(course -> logger.info(course.getCourseId() +  "\t\t " + course.getCourseName()));
+            for (Course c : courseList)
+                logger.info(c.getCourseId() + "\t\t" + c.getCourseName());
+            //courseList.forEach(course -> logger.info(course.getCourseId() +  "\t\t " + course.getCourseName()));
             logger.info("###########################################");
         }
     }
@@ -77,7 +79,10 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public void viewReportCard(Student student) {
+        logger.info("############# Report Card ################");
+        logger.info("Course\tGrade");
         studentDao.viewReportCard(student).forEach( (k,v) -> logger.info(k + "\t" + v));
+        logger.info("###########################################");
     }
 
     /**

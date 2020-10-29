@@ -2,10 +2,12 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.dao.ProfessorDAOImpl;
 import com.flipkart.dao.ProfessorDAO;
 import org.apache.log4j.Logger;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -23,7 +25,17 @@ public class ProfessorServiceImpl implements ProfessorService {
      */
     @Override
     public void viewAssignedStudents(Professor professor) {
-        professorDao.getStudents(professor);
+        ResultSet rs = professorDao.getStudents(professor);
+        try {
+            logger.info("############# Student List #############");
+            logger.info("Course-Id \t Student-Id\tStudent-Name\tBranch\tgender\tSemester");
+            while (rs.next()) {
+                logger.info(rs.getInt("courseid") + "\t\t" + rs.getInt("studentid") + "\t\t" + rs.getString("studentname") + "\t\t" + rs.getString("branch") + "\t" + rs.getString("gender") + "\t" + rs.getInt("semester"));
+            }
+            logger.info("#############################################");
+        } catch(Exception ex) {
+            logger.error(ex.getMessage());
+        }
     }
 
     /**

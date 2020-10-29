@@ -124,10 +124,16 @@ public class AdminApplicationClient {
         logger.info("2 - add new professor");
         logger.info("3 - add new student");
         int option = Integer.parseInt(sc.nextLine());
+        logger.info("Enter username");
+        String username = sc.nextLine();
+        logger.info("Enter userid");
+        int userid = Integer.parseInt(sc.nextLine());
 
         switch(option) {
             case 1:
                 Admin admin = new Admin();
+                admin.setUserId(userid);
+                admin.setUsername(username);
                 logger.info("Enter admin id : ");
                 admin.setAdminID(Integer.parseInt(sc.nextLine()));
                 logger.info("Enter admin name : ");
@@ -150,6 +156,8 @@ public class AdminApplicationClient {
 
             case 2:
                 Professor professor = new Professor();
+                professor.setUserId(userid);
+                professor.setUsername(username);
                 logger.info("Enter professor id : ");
                 professor.setProfessorId(Integer.parseInt(sc.nextLine()));
                 logger.info("Enter professor name : ");
@@ -175,6 +183,8 @@ public class AdminApplicationClient {
 
             case 3:
                 Student student = new Student();
+                student.setUserId(userid);
+                student.setUsername(username);
                 logger.info("Enter student id : ");
                 student.setStudentId(Integer.parseInt(sc.nextLine()));
                 logger.info("Enter student name : ");

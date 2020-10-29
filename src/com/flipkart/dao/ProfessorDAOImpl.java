@@ -26,26 +26,21 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     private PreparedStatement stmt = null;
 
     @Override
-    public void getStudents(Professor professor) {
+    public ResultSet getStudents(Professor professor) {
         List<Student> students = new ArrayList<>();
         try {
             stmt = connection.prepareStatement(SQLQueries.GET_STUDENTS_TO_TEACH);
             stmt.setInt(1, professor.getProfessorId());
             ResultSet rs = stmt.executeQuery();
             if(rs != null) {
-                logger.info("############# Student List #############");
-                logger.info("Course-Id \t Student-Id\tStudent-Name\tBranch\tgender\tSemester");
-                while(rs.next()) {
-                    logger.info(rs.getInt("courseid") + "\t\t" + rs.getInt("studentid") + "\t\t" + rs.getString("studentname") + "\t\t" + rs.getString("branch") + "\t" + rs.getString("gender") + "\t" + rs.getInt("semester"));
-                }
-                logger.info("#############################################");
+                return rs;
+            } else {
+                throw new Exception("No students found for professor : " + professor.getProfessorId());
             }
         } catch(Exception ex) {
             logger.error(ex.getMessage());
-        } finally {
-            //close resources
-            DBUtil.closeStmt(stmt);
         }
+        return null;
     }
 
     @Override

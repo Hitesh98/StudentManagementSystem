@@ -9,6 +9,7 @@ import com.flipkart.business.UserServiceImpl;
 import com.flipkart.exception.CourseNotFoundException;
 import org.apache.log4j.Logger;
 
+
 import java.util.Scanner;
 
 /**
@@ -17,10 +18,10 @@ import java.util.Scanner;
 public class StudentApplicationClient {
 
     private static Logger logger = Logger.getLogger(StudentApplicationClient.class);
-    private Student student;
-    private StudentService studentService = new StudentServiceImpl();
-    private UserService userService = new UserServiceImpl();
-    private Scanner sc = new Scanner(System.in);
+    private static Student student;
+    private static StudentService studentService = new StudentServiceImpl();
+    private static UserService userService = new UserServiceImpl();
+    private static Scanner sc = new Scanner(System.in);
 
     /**
      * Display student options menu.
@@ -69,7 +70,7 @@ public class StudentApplicationClient {
     }
 
     // Show choices
-    private void displayOptions() {
+    private static void displayOptions() {
         logger.info("Enter your choice:");
         logger.info("1. View all courses");
         logger.info("2. Select course");
@@ -81,7 +82,7 @@ public class StudentApplicationClient {
     }
 
     // Gets course id to add for student
-    private void selectCourse() {
+    private static void selectCourse() {
         if(studentService.getNumberOfCoursesRegistered(student) >= 4) {
             logger.info("Course limit reached!!");
         }

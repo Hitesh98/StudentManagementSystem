@@ -1,5 +1,6 @@
 package com.flipkart.business;
 
+import com.flipkart.Utils.PrintableTable;
 import com.flipkart.bean.*;
 import com.flipkart.constants.USERTYPE;
 import com.flipkart.dao.AuthDAO;
@@ -24,9 +25,22 @@ public class UserServiceImpl implements UserService {
 
         CourseCatalogService catalog = new CourseCatalogServiceImpl();
 
+
+
         List<Course> courses = catalog.getAllCourses();
-        logger.info("Course-Id\tCourse-Name\tFees\tCourse-Description");
-        courses.forEach(course -> logger.info(course.getCourseId() + "\t" + course.getCourseName() + " \t"  + course.getFees() + "\t" + course.getDescription()));
+        String[][] data = new String[courses.size() + 1][4];
+        data[0] = new String[]{"Course-Id", "Course-Name", "Fees", "Course-Description"};
+        for (int i = 0; i < courses.size(); i++) {
+            data[i + 1][0] = String.valueOf(courses.get(i).getCourseId());
+            data[i + 1][1] = courses.get(i).getCourseName();
+            data[i + 1][2] = String.valueOf(courses.get(i).getFees());
+            data[i + 1][3] = courses.get(i).getDescription();
+        }
+        PrintableTable st = new PrintableTable();
+        //st.getRightJustifiedRows();
+        logger.info(st.printTable(data));
+        //logger.info("Course-Id\tCourse-Name\tFees\tCourse-Description");
+        //courses.forEach(course -> logger.info(course.getCourseId() + "\t\t" + course.getCourseName() + " \t\t"  + course.getFees() + "\t\t" + course.getDescription()));
     }
 
     /**

@@ -59,7 +59,7 @@ public class AdminServiceImpl implements AdminService {
     public boolean assignCourseToProfessor(Professor professor, int courseId) {
         try {
             adminDao.assignCourseToProfessor(professor, courseId);
-            logger.info("The course with course ID " + courseId + " assigned to " + professor.getName());
+            logger.info("The course with course ID " + courseId + " assigned to " + professor.getProfessorId());
         } catch (Exception ex) {
             logger.error(ex);
             return false;

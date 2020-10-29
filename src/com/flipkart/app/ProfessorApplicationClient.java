@@ -64,7 +64,7 @@ public class ProfessorApplicationClient {
         logger.info("Enter your choice:");
         logger.info("1. View all courses");
         logger.info("2. View assigned courses");
-        logger.info("3. View students in a course");
+        logger.info("3. View all students to teach");
         logger.info("4. Grade student");
         logger.info("0. Logout");
     }
